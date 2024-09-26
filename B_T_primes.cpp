@@ -20,7 +20,7 @@ using namespace std;
 #define p(f, s) pair<f, s>
 #define vp(f, s) vector<pair<f, s>>
 #define sp(f, s) set<pair<f, s>>
-#define fi(s, e) for (int i = s; i < e; ++i)
+#define fi(s, e) for (ll i = s; i < e; ++i)
 #define fj(s, e) for (int j = s; j < e; ++j)
 #define fk(s, e) for (int k = s; k < e; ++k)
 #define fe(s, e) for (auto s : e)
@@ -28,20 +28,28 @@ using namespace std;
 #define yes cout << "YES" << endl
 #define no cout << "NO" << endl
 #define dn(a) cout << a << endl
-const int N = 1e5 + 123;
+const ll N = 1e6;
+bool prime[N+123];
+s(ll)v;
 int main()
 {
     optimize();
-    int t;
-    cin >> t;
-    while(t--){
-        int a,b,c;
-        cin >> a>> b>>c;
-        ve(int)v;
-        v.pb(a);
-        v.pb(b);
-        v.pb(c);
-        int mx = *max_element(v.begin(),v.end());
-        
+    prime[0]= prime[1] = 1;
+    for(ll i = 2; i*i <= N; i++){
+        if(!prime[i]){
+            for(ll j= i*i; j <= N; j+=i){
+                prime[j] = 1;
+            }
+        }
+    }
+    fi(2,N+1){
+        if(!prime[i]) v.ins(i*i);
+    }
+    ll n;  cin >> n;
+    ll arr[n+123];
+    fi(0,n){
+        cin >> arr[i];
+        if(v.find(arr[i]) != v.end())yes;
+        else no;
     }
 }

@@ -20,7 +20,7 @@ using namespace std;
 #define p(f, s) pair<f, s>
 #define vp(f, s) vector<pair<f, s>>
 #define sp(f, s) set<pair<f, s>>
-#define fi(s, e) for (int i = s; i < e; ++i)
+#define fi(s, e) for (ll i = s; i < e; ++i)
 #define fj(s, e) for (int j = s; j < e; ++j)
 #define fk(s, e) for (int k = s; k < e; ++k)
 #define fe(s, e) for (auto s : e)
@@ -32,16 +32,43 @@ const int N = 1e5 + 123;
 int main()
 {
     optimize();
-    int t;
-    cin >> t;
-    while(t--){
-        int a,b,c;
-        cin >> a>> b>>c;
-        ve(int)v;
-        v.pb(a);
-        v.pb(b);
-        v.pb(c);
-        int mx = *max_element(v.begin(),v.end());
-        
+    ll sum = 0;
+    ll n,q;    cin >> n >> q;
+    ve(ll) arr(n);
+    fi(0,n){
+        cin >> arr[i];
+        sum+=arr[i];
+    }
+    m(ll,ll) ppp;
+    ll p = 0;
+    while(q--){
+        ll t;  cin >> t;
+        if(t == 1){
+            ll point,x;   cin >> point >> x;
+            if(p==0){
+                sum -=arr[point-1];
+                sum+= x;
+                arr[point-1] = x;
+            }
+            else {
+                if(ppp[point] == 0){
+                    sum -= p;
+                    sum += x;
+                    ppp[point] = x;
+                }
+                else {
+                    sum -=ppp[point];
+                    sum += x;
+                    ppp[point] = x;
+                }
+            }
+        }
+        else{
+            ll x;   cin >> x;
+            sum = x*n;
+            ppp.clear();
+            p = x;
+        }
+        cout << sum << endl;
     }
 }
