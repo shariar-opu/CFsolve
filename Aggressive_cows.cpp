@@ -8,21 +8,25 @@ void solve(int tc){
     }
     sort(stalls.begin(), stalls.end());
 
-    long long ans = INT_MAX;
-    vector<long long>tmp;
-    for(auto u : stalls){
-        long long distance = *lower_bound(stalls.begin(), stalls.end(), u);
-        if(distance > 1 && c > 0){
-            cout << distance << " ";
-            tmp.push_back(distance);
-            c--;
-        }  
+    long long k = 0;
+    vector<long long>tmp(c);
+    tmp[k] = stalls[0];
+    k++;
+    for(int i = 1; i < n; i++){
+        long long distance = *lower_bound(stalls.begin(), stalls.end(), stalls[i]);
+        // cout << distance << " ";
+        if(abs(distance - tmp[k-1]) > 1 && k <= c){
+            // cout << distance << " ";
+            tmp[k] = distance;
+            k++;
+        } 
     }
-    cout << endl;
+    // cout << endl;
 
+    long long ans = INT_MAX;
     sort(tmp.begin(), tmp.end());
-    for(int i = 0; i < n - 1; i++){
-        ans = min(ans, abs(tmp[i] - tmp[i+1]));
+    for(int i = 1; i < c; i++){
+        ans = min(ans, abs(tmp[i] - tmp[i-1]));
     }
     cout << ans << endl;
 }
