@@ -8,12 +8,12 @@ void solve(int tc){
     }
     sort(stalls.begin(), stalls.end());
 
-    long long k = 0;
+    int k = 0;
     vector<long long>tmp(c);
     tmp[k] = stalls[0];
     k++;
     for(int i = 1; i < n; i++){
-        long long distance = *lower_bound(stalls.begin(), stalls.end(), stalls[i]);
+        long long distance = *upper_bound(stalls.begin(), stalls.end(), stalls[i]);
         // cout << distance << " ";
         if(abs(distance - tmp[k-1]) > 1 && k <= c){
             // cout << distance << " ";
