@@ -1,38 +1,38 @@
 #include<bits/stdc++.h>
 using namespace std;
-void solve(int tc){
-    int n, c;   cin >> n >> c;
-    vector<long long>stalls(n);
-    for(int i = 0; i < n; i++){
-        cin >> stalls[i];
-    }
-    sort(stalls.begin(), stalls.end());
 
-    int k = 0;
-    vector<long long>tmp(c);
-    tmp[k] = stalls[0];
-    k++;
-    for(int i = 1; i < n; i++){
-        long long distance = *upper_bound(stalls.begin(), stalls.end(), stalls[i]);
-        // cout << distance << " ";
-        if(abs(distance - tmp[k-1]) > 1 && k <= c){
-            // cout << distance << " ";
-            tmp[k] = distance;
-            k++;
-        } 
+int n,c;
+vector<int>v;
+bool mono(int dist) {
+    int cow = c - 1;
+    int prev=v[0];
+    for(int i = 0;i<n;i++) {
+        if(v[i] - prev >= dist) {
+            cow--;
+            prev=v[i];
+        }
     }
-    // cout << endl;
-
-    long long ans = INT_MAX;
-    sort(tmp.begin(), tmp.end());
-    for(int i = 1; i < c; i++){
-        ans = min(ans, abs(tmp[i] - tmp[i-1]));
-    }
-    cout << ans << endl;
+    return (cow <= 0);
 }
-int main(){
-    ios_base::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-    int t = 1;
-    cin >> t;
-    for(int i = 1; i <= t; i++) solve(t);
+
+int bs() {
+    int l = 1,r = 1e9;
+    while(r - l > 1) {
+        long long mid = (r+l) / 2;
+        if(mono(mid))l=mid;
+        else r = mid-1;
+    }
+    if(mono(r))return r;
+    return l;
+}
+
+int main() {
+    int t;cin>>t;
+    while(t--) {
+        cin>> n>>c;
+        v.resize(n);
+        for(int &i:v)cin>>i;
+        sort(v.begin(),v.end());
+        cout<<bs() <<"\n";
+    }
 }
