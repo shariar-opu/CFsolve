@@ -37,18 +37,25 @@ ll gcd(ll a, ll b);
 ll lcm(ll a, ll b);
 
 void solve(int tc){
-    int n;  cin >> n;
-    vector<int>arr(n);
-    ll odd = 0, evn = 0;
+    int n, k;  cin >> n >> k;
+    vector<int> arr(n);
+    for(int &i : arr) cin >> i;
+    bool ok = 1;
     for(int i = 0; i < n; i++){
-        cin >> arr[i];
-        if(i & 1) odd += arr[i];
-        else evn += arr[i];
+        ok = 1;
+        for(int j = 0; j < n; j++){
+            if(abs(arr[i] - arr[j]) % k == 0 && i != j){
+                ok = 0;
+                break;
+            }
+        }
+        if(ok){
+            yes;
+            cout << i + 1 << endl;
+            return;
+        }
     }
-
-    int op = n/2, ep = n - op;
-    if((odd % op == 0) && (evn % ep == 0) && (odd/op == evn/ep)) yes;
-    else no;
+    no;
 }
 
 int32_t main(){

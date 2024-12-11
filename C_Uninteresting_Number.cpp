@@ -38,22 +38,34 @@ ll lcm(ll a, ll b);
 
 void solve(int tc){
     string s;  cin >> s;
-    vector<int>num;
+    int cnt[10];
     int sum = 0;
     for(auto u : s){
         sum += u - '0';
-        if(u - '0' < 4) num.pb(u - '0');
+        cnt[u - '0']++;
     }
     int need = 9 - (sum % 9);
     if(!need){
         yes;
         return;
     }
-    sort(all(num));
-
-    int l = 0, r = 1;
-    while(r < sz(num)){
-        ;
+    for(int i = 1; i <= cnt[3]; i++){
+        int ans = (6*i);
+        ans %= 9;
+        if(need - ans < 0) ans = 0;
+        if(ans == need){
+            yes;
+            return;
+        }
+        for(int j = 1; j <= cnt[2]; j++){
+            int ans1 = (2 * i);
+            ans1 %= 9;
+            if(need - ans1 < 0) ans1 = 0;
+            if(ans + ans1 == need){
+                yes;
+                return;
+            }
+        }
     }
     no;
 }

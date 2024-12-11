@@ -38,17 +38,23 @@ ll lcm(ll a, ll b);
 
 void solve(int tc){
     int n;  cin >> n;
-    vector<int>arr(n);
-    ll odd = 0, evn = 0;
-    for(int i = 0; i < n; i++){
-        cin >> arr[i];
-        if(i & 1) odd += arr[i];
-        else evn += arr[i];
+    if(n == 1){
+        cout << 1 << endl;
+        return;
     }
-
-    int op = n/2, ep = n - op;
-    if((odd % op == 0) && (evn % ep == 0) && (odd/op == evn/ep)) yes;
-    else no;
+    if(n > 1 && n < 5){
+        cout << 2 << endl;
+        return;
+    }
+    int ans = 2, ones = 4;
+    while(1){
+        if(ones >= n){
+            cout << ans << endl;
+            return;
+        }
+        ones++, ans++;
+        ones += ones;
+    }
 }
 
 int32_t main(){
