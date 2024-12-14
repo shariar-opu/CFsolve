@@ -1,38 +1,39 @@
 #include<bits/stdc++.h>
 using namespace std;
-
-int n,c;
-vector<int>v;
-bool mono(int dist) {
-    int cow = c - 1;
-    int prev=v[0];
-    for(int i = 0;i<n;i++) {
-        if(v[i] - prev >= dist) {
+int n, c;
+vector<int>cows;
+bool mono(int dist){
+    int precow = cows[0], cow = c - 1;
+    for(int i = 1; i < n; i ++){
+        if(cows[i] - precow >= dist){
+            precow = cows[i];
             cow--;
-            prev=v[i];
         }
     }
     return (cow <= 0);
 }
-
-int bs() {
-    int l = 1,r = 1e9;
-    while(r - l > 1) {
-        long long mid = (r+l) / 2;
-        if(mono(mid))l=mid;
+int bs(){
+    int l = 1, r = 1e9;
+    while(r - l > 1){
+        long long mid = (r + l) / 2;
+        if(mono(mid)) l = mid;
         else r = mid-1;
     }
-    if(mono(r))return r;
+    if(mono(r)) return r;
     return l;
 }
-
-int main() {
-    int t;cin>>t;
-    while(t--) {
-        cin>> n>>c;
-        v.resize(n);
-        for(int &i:v)cin>>i;
-        sort(v.begin(),v.end());
-        cout<<bs() <<"\n";
+void solve(int tc){
+    cin >> n >> c;
+    cows.resize(n);
+    for(int &i : cows){
+        cin >> i;
     }
+    sort(cows.begin(), cows.end());
+    cout << bs() << endl;
+}
+int main(){
+    ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+    int t = 1;
+    cin >> t;
+    while(t--) solve(t);
 }
