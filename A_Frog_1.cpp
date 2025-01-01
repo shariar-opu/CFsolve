@@ -6,10 +6,11 @@ int solve(int idx){
     if(idx == n) return 0;
     if(dp[idx]) return dp[idx];
 
-    int res = INT_MAX;
-    for(int i = 1; i <= 2; i++){
-        if(idx + i <= n) res = min(res, abs(arr[idx] - arr[idx+i]) + solve(idx+i));
-    }
+    int res = abs(arr[idx] - arr[idx+1]) + solve(idx+1);
+    if(idx + 2 <= n) res = min(res, abs(arr[idx] - arr[idx+2]) + solve(idx+2));
+    // for(int i = 1; i <= 2; i++){
+    //     if(idx + i <= n) res = min(res, abs(arr[idx] - arr[idx+i]) + solve(idx+i));
+    // }
     dp[idx] = res;
     return dp[idx];
 }
