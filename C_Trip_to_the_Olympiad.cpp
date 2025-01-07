@@ -62,20 +62,28 @@ void solve(int tc){
         tmp /= 2, j--;
     }
 
-    vector<int> a, b;
+    vector<int> a(31), b(31);
     for(int i = 0; i < 31; i++){
         if(low[i] == high[i]){
-            a.pb(low[i]);
-            b.pb(low[i]);
+            a[i] = low[i];
+            b[i] = low[i];
         }
-        else break;
+        else {
+            j = i;
+            break;
+        }
     }
-    a.pb(1), j = sz(a);
-    for(int i = j + 1; i < 31; i++) a.pb(0);
-    b.pb(0);
-    for(int i = j + 1; i < 31; i++) b.pb(1);
+    a[j] = 1, b[j] = 0, j++;
+    for(int i = j; i < 31; i++) b[i] = 1;
 
-    ll x = convDec(a), y = convDec(b), z = x+1;
+    ll x = convDec(a), y = convDec(b), z;
+
+    for(int i = l; i <= r; i++){
+        if(i != x && i != y){
+            z = i;
+            break;
+        }
+    }
 
     cout << x << " " << y << " " << z << endl;
 }
