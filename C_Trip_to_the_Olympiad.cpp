@@ -36,18 +36,48 @@ ll pw(ll a, ll b);
 ll gcd(ll a, ll b);
 ll lcm(ll a, ll b);
 
-void solve(int tc){
-    int l, r, mx = 0;   cin >> l >> r;
-
-    for(int i = l; i <= r; i++){
-        for(int j = l; j <= r && i != j; j++){
-            for(int k = l; k <= r && k != i && k != j; k++){
-                mx = max(mx, (i ^ j) + (j ^ k) + (i ^ k));
-                cout << i << ", " << j << ", " << k << ": " << (i ^ j) + (j ^ k) + (i ^ k) << endl; 
-            }
+ll convDec(vector<int> &a){
+    reverse(all(a));
+    ll num = 0;
+    for(int i = 0; i < 31; i++){
+        if(a[i]){
+            num += pw(2, i);
         }
     }
-    cout << mx << endl;
+    return num;
+}
+
+void solve(int tc){
+    ll l, r, tmp, j;   cin >> l >> r;
+    
+    vector<ll> low(31), high(31);
+    tmp = l, j = 30;
+    while( tmp > 0){
+        if(tmp % 2) low[j] = 1;
+        tmp /= 2, j--;
+    }
+    tmp = r, j = 30;
+    while( tmp > 0){
+        if(tmp % 2) high[j] = 1;
+        tmp /= 2, j--;
+    }
+
+    vector<int> a, b;
+    for(int i = 0; i < 31; i++){
+        if(low[i] == high[i]){
+            a.pb(low[i]);
+            b.pb(low[i]);
+        }
+        else break;
+    }
+    a.pb(1), j = sz(a);
+    for(int i = j + 1; i < 31; i++) a.pb(0);
+    b.pb(0);
+    for(int i = j + 1; i < 31; i++) b.pb(1);
+
+    ll x = convDec(a), y = convDec(b), z = x+1;
+
+    cout << x << " " << y << " " << z << endl;
 }
 
 int32_t main(){
@@ -61,11 +91,10 @@ int32_t main(){
 }
 
 ll pw(ll a, ll b){
-    a %= mod;
     ll r = 1;
     while(b > 0){
-        if(b & 1) r = (r * a) % mod;
-        a = (a * a) % mod;
+        if(b & 1) r = (r * a);
+        a = (a * a);
         b >>= 1;
     }
     return r;
