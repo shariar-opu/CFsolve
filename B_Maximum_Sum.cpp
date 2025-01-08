@@ -15,10 +15,10 @@ void solve(int tc){
 
   for(int i = 1; i < k; i++){
     mx -= min(arr[l1] + arr[r1], arr[r11]);
-    if(arr[l1] + arr[r1] > arr[r11]) r11--;
+    if(arr[l1] + arr[r1] >= arr[r11]) r11--;
     else l1 = r1 + 1, r1 = l1 + 1;
     mn -= min(arr[l2] + arr[r2], arr[r22]);
-    if(arr[l2] + arr[r2] > arr[r22]) r22--;
+    if(arr[l2] + arr[r2] >= arr[r22]) r22--;
     else l2 = r2 + 1, r2 = l2 + 1;
   }
 
