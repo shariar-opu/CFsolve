@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 const double pi = 3.1416;
-const double inf = 1e-5;
+const double inf = 2e-9;
 int n, f;
 vector<double> pie;
 
