@@ -2,7 +2,7 @@
 using namespace std;
 #define ll long long
 
-bool calc(vector<ll> &arr, ll h, ll findH){
+bool calc(vector <ll> &arr, ll h, ll findH){
     ll totalHour = 0;
     for(auto i : arr){
         totalHour += (i + findH - 1) / findH; //add ceil value
@@ -11,7 +11,7 @@ bool calc(vector<ll> &arr, ll h, ll findH){
     return true;
 }
 
-ll bs(vector<ll> &arr, ll h){
+ll bs(vector <ll> &arr, ll h){
     ll left = 1, right = *max_element(arr.begin(), arr.end());
 
     while(right - left > 0){
@@ -25,7 +25,7 @@ ll bs(vector<ll> &arr, ll h){
 
 void solve(){
     ll n, h;   cin >> n >> h;
-    vector<ll> arr(n);
+    vector <ll> arr(n);
     for(ll &i : arr) cin >> i;
 
     cout << bs(arr, h) << endl;
