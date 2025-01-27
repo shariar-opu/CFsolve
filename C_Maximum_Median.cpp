@@ -2,11 +2,12 @@
 using namespace std;
 #define ll long long
 
+const int inf = 2e5;
 ll n, k;
-vector<ll>arr;
-bool calc(int val){
+ll arr[inf + 7];
+bool calc(ll val){
     ll res = 0, j = (n+1)/2;
-    for(int i = j; i < n; i++){
+    for(int i = j-1; i < n; i++){
         res += (val - arr[i]);
         if(res > k) return false;
     }
@@ -14,24 +15,25 @@ bool calc(int val){
 }
 
 int bs(){
-    ll left  = 1, right = 1e9;
-    while(right - left > 0){
+    ll left = 0, right = 1e15, ans;
+    while(right - left >= 0){
         ll mid = left + (right - left) / 2;
 
-        if(calc(mid)) left = mid;
+        if(calc(mid)) {
+            ans = mid;
+            left = mid + 1;
+        }
         else right = mid - 1;
     }
-    if(calc(right)) return right;
-    return left;
+    return ans;
 }
 
 int main(){
     ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
     
     cin >> n >> k;
-    arr.resize(n);
-    for(ll &i : arr) cin >> i;
-    sort(arr.begin(), arr.end());
+    for(int i = 0; i < n; i++) cin >> arr[i];
+    sort(arr, arr + n);
 
     cout << bs() << endl;
 }
