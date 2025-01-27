@@ -3,25 +3,36 @@ using namespace std;
 string s, t;
 vector<int> arr;
 
-bool calc(int del){
+bool calc(long long del){
     if(s.size() - del < t.size()) return false;
-    string tmp = s;
-    for(int i = 0; i < del; i++){
-        tmp.erase(tmp.begin() + arr[i]);
+    vector<int> need;
+    for(int i = del; i < s.size(); i++){
+        need.push_back(arr[i]);
     }
-    if(tmp.find(t) != string::npos) return true;
-    else return false;
+    sort(need.begin(), need.end()); 
+
+    string tmp = "";
+    for(auto u : need) tmp += s[u];
+    
+    int z = 0;
+    for(int j = 0; j < tmp.size(); j++){
+        if(tmp[j] == t[z]){
+            z++;
+            if(z == t.size()) return true;
+        }
+    }
+    return false;
 }
 
 int bs(){
-    int left = 1, right = s.size(), ans;
-    while(right - left > 0){
+    long long left = 0, right = 1e11, ans;
+    while(right - left >= 0){
         long long mid = (right + left) / 2;
         if(calc(mid)) {
             ans = mid;
-            right = mid - 1;
+            left = mid + 1;
         }
-        else left = mid + 1;
+        else right = mid - 1;
     }
 
     return ans;
@@ -34,8 +45,8 @@ int main(){
     int n = s.size();
     arr.resize(n);
     for(int i = 0; i < n; i++){
-        cin >> arr[i];
-        arr[i]--;
+        int a;  cin >> a;
+        arr[i] = a - 1;
     }
 
     cout << bs() << endl;
