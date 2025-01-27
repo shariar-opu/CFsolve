@@ -1,22 +1,19 @@
 #include<bits/stdc++.h>
 using namespace std;
+
+const int inf = 2e5;
 string s, t;
-vector<int> arr;
+int arr[inf + 7];
+bool mark[inf + 7];
 
 bool calc(long long del){
-    if(s.size() - del < t.size()) return false;
-    vector<int> need;
-    for(int i = del; i < s.size(); i++){
-        need.push_back(arr[i]);
-    }
-    sort(need.begin(), need.end()); 
+    memset(mark, 0, sizeof(mark));
 
-    string tmp = "";
-    for(auto u : need) tmp += s[u];
+    for(int i = 1; i <= del; i++) mark[arr[i]] = 1;
     
     int z = 0;
-    for(int j = 0; j < tmp.size(); j++){
-        if(tmp[j] == t[z]){
+    for(int j = 0; j < s.size(); j++){
+        if(s[j] == t[z] && !mark[j+1]){
             z++;
             if(z == t.size()) return true;
         }
@@ -25,7 +22,7 @@ bool calc(long long del){
 }
 
 int bs(){
-    long long left = 0, right = 1e11, ans;
+    long long left = 0, right = s.size(), ans;
     while(right - left >= 0){
         long long mid = (right + left) / 2;
         if(calc(mid)) {
@@ -43,10 +40,8 @@ int main(){
     cin >> s >> t;
 
     int n = s.size();
-    arr.resize(n);
-    for(int i = 0; i < n; i++){
-        int a;  cin >> a;
-        arr[i] = a - 1;
+    for(int i = 1; i <= n; i++){
+        cin >> arr[i];
     }
 
     cout << bs() << endl;
