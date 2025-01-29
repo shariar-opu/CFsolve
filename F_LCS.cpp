@@ -2,14 +2,14 @@
 using namespace std;
 string s, t, nnn;
 string solve(char a, int j){
-    if(i >= s.size()) return nnn;
+    if(j >= s.size()) return nnn;
     if(j >= t.size()) return nnn;
 
     string res = "";
     bool ok = 0;
     for(int q = j; q < t.size(); q++){
         if(a == t[q]){
-            res = solve(s[i+1], q+1) + t[q];
+            res = solve(s[j+1], q+1) + t[q];
             // string tmp = solve(s[i+1], q+1);
             // if(res.size() < tmp.size() + 1) res = tmp + t[q];
             // ok = 1;
