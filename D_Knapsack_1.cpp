@@ -11,8 +11,8 @@ ll solve(int j, int w){
     if(j < 0) return 0;
     if(dp[j][w]) return dp[j][w];
 
-    ll res = solve(j - 1, w);
-    if(w >= vp[j].first) res = max(res, solve(j - 1, w - vp[j].first) + vp[j].second);
+    ll res = solve(j - 1, w); //not take
+    if(w >= vp[j].first) res = max(res, solve(j - 1, w - vp[j].first) + vp[j].second); //take
     
     return dp[j][w] = res;
 }
