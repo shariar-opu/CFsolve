@@ -16,7 +16,6 @@ int solve(int book, int price){
 
 int main(){
     ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-    // memset(dp, -1, sizeof(dp));
 
     int totalPrice;   cin >> n >> totalPrice;
 
