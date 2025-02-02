@@ -1,24 +1,14 @@
 #include<bits/stdc++.h>
 using namespace std;
+
 const int inf = 1e5;
-
-int n, bookPrice[1007], bookPage[1007], dp[1007][inf + 7];
-
-int solve(int book, int price){
-    if(price == 0) return 0;
-    if(book < 0) return 0;
-    if(dp[book][price]) return dp[book][price];
-    int res = solve(book - 1, price);
-    if(price >= bookPrice[book]) res = max(res, solve(book - 1, price - bookPrice[book]) + bookPage[book]);
-
-    return dp[book][price] = res;
-}
 
 int main(){
     ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
 
-    int totalPrice;   cin >> n >> totalPrice;
+    int n, totalPrice;   cin >> n >> totalPrice;
 
+    vector<int> bookPrice(n), bookPage(n);
     for(int i = 0; i < n; i++){
         cin >> bookPrice[i];
     }
@@ -26,5 +16,14 @@ int main(){
         cin >> bookPage[i];
     }
 
-    cout << solve(n - 1, totalPrice) << endl;
+    vector<vector<int>> dp(n + 1, vector<int>(totalPrice + 1, 0));
+
+    for(int i = 1; i <= n; i++){
+        for(int j = 0; j <= totalPrice; j++){
+            dp[i][j] = dp[i - 1][totalPrice];
+            if(j >= bookPrice[i])
+                dp[i][j] = max(dp[i][j], dp[i - 1][totalPrice - bookPrice[i]] + bookPage[i]);
+        }
+    }
+    cout << dp[n][totalPrice] << endl;
 }
