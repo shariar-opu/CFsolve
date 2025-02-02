@@ -4,9 +4,10 @@ const int mod = 1e9 + 7;
 int main(){
     ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
 
-    long long n, price;     cin >> n >> price;
-    vector<long long> coins(n), dp(price + 1, 0);
+    int n, price;     cin >> n >> price;
+    vector<int> coins(n);
     for(int i = 0; i < n; i++) cin >> coins[i];
+    vector<long long> dp(price + 1, 0);
     dp[0] = 1;
 
     for(int i = 0; i < n; i++){
@@ -17,5 +18,5 @@ int main(){
         }
     }
 
-    cout << dp[price] << endl;
+    cout << dp[price];
 }
