@@ -38,6 +38,7 @@ ll lcm(ll a, ll b);
 
 void solve(int tc){
     int  n, m;  cin >> n >> m;
+
     vector<int> a(n), b(m);
     for(int &i : a) cin >> i;
     for(int &i : b) cin >> i;
@@ -50,19 +51,17 @@ void solve(int tc){
 
         int tmp = -1;
         if(it != b.end()) tmp = *it;
+        if(tmp != -1){
+            if(a[i] < pre) a[i] = tmp - a[i];
+            else a[i] = min(a[i], tmp - a[i]);
+        }
 
-        if(tmp != -1) cout << tmp - a[i] << endl;
-
-        vector<int> ans;
-        if(tmp >= pre) ans.pb(tmp);
-        if(a[i] >= pre) ans.pb(a[i]);
-        
-        if(ans.empty()){
+        if(a[i] < pre){
             no;
             return;
         }
 
-        pre = *min_element(all(ans));
+        pre = a[i];
     }
     yes;
 }

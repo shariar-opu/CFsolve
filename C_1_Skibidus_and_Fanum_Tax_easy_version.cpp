@@ -37,29 +37,31 @@ ll gcd(ll a, ll b);
 ll lcm(ll a, ll b);
 
 void solve(int tc){
-    ll n, m; cin >> n >> m;
-    vector<ll> a(n), b(m);
-    for(ll &i : a) cin >> i;
-    for(ll &i : b) cin >> i;
+    int  n, m;  cin >> n >> m;
 
-    if( n == 1 ){
-        yes;
-        return;
-    }
+    vector<int> a(n), b(m);
+    for(int &i : a) cin >> i;
+    for(int &i : b) cin >> i;
 
-    ll pre = INT_MIN;
+    sort(all(b));
+
+    int pre  = INT_MIN;
     for(int i = 0; i < n; i++){
-        ll tmp = b[0] - a[i];
-        if(a[i] < pre && tmp < pre){
+        auto it = lower_bound(all(b), pre + a[i]);
+
+        int tmp = -1;
+        if(it != b.end()) tmp = *it;
+        if(tmp != -1){
+            if(a[i] < pre) a[i] = tmp - a[i];
+            else a[i] = min(a[i], tmp - a[i]);
+        }
+
+        if(a[i] < pre){
             no;
             return;
         }
-        vector<ll> ans;
-        if(a[i] >= pre) ans.pb(a[i]);
-        if(tmp >= pre) ans.pb(tmp);
 
-        sort(all(ans));
-        pre = ans[0];
+        pre = a[i];
     }
     yes;
 }
