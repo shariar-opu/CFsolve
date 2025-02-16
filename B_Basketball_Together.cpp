@@ -13,12 +13,13 @@ void solve(){
     for(int i = 0; i < n; i++){
         tmp -= (d/powers[i] + 1);
 
-        if(tmp <= 0) {
+        if(tmp < 0) {
             cout << ans << endl;
             return;
         }
         ans++;
     }
+    cout << ans << endl;
 }
 
 int main(){

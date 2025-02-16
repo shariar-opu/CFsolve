@@ -6,34 +6,16 @@ void solve(){
     char c; cin >> c;
     string s;   cin >> s;
 
-    if(n == 1) {
+    if(n == 1){
         cout << 0 << endl;
         return;
     }
 
-    vector<int> starting, green;
-
-    for(int i = 0; i < n; i++){
-        if(s[i] == 'g') green.push_back(i);
-        if(s[i] == c) starting.push_back(i + 1);
-    }
-
-    sort(green.begin(), green.end());
-    sort(starting.begin(), starting.end());
-
-    int ans = INT_MAX;
-    if(s[n - 1] == 'g'){
-        ans = n - starting.back();
-    }
-    else if(s[n - 1] == c){
-        ans = green[0] + 1;
-    }
-    else{
-        for(auto i : starting){
-            for(auto g : green){
-                ans = min(ans, n - i + 1 + g);
-            }
-        }
+    s += s;
+    int ans = 0, g = -1;
+    for(int i = s.size() - 1; i >= 0; --i){
+        if(s[i] == 'g') g = i;
+        if(s[i] == c) ans = max(ans, g - i);
     }
     cout << ans << endl;
 }
