@@ -4,7 +4,8 @@
         "cstdlib": "cpp",
         "valarray": "cpp",
         "iomanip": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "iosfwd": "cpp"
     },
     "python.testing.pytestArgs": [
         "."
