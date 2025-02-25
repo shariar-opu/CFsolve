@@ -5,46 +5,32 @@ int n;
 vector<ll> arr;
 bool calc(ll val){
   int l = 0, r = 1, res = 0;
-  bool ok = 0, ok1 = 0;
+  bool ok = 0;
   if(n & 1){
-    while(r < n - 1){
-        if(abs(arr[l] - arr[r]) > val) res++;
-        if(res) ok = 1;
+    while(r < n){
+        if(abs(arr[l] - arr[r]) > val){
+            if(!ok){
+                r--, l--;
+                ok = 1;
+            }
+            else res++;
+        }
+        if(res) return false;
         l += 2, r += 2;
     }
   }
   else {
     while(r < n){
         if(abs(arr[l] - arr[r]) > val) res++;
-        if(res) ok = 1;
+        if(res) return false;
         l += 2, r += 2;
     }
   }
-
-  reverse(arr.begin(), arr.end());
-
-  res = 0, l = 0, r = 1;
-  if(n & 1){
-    while(r < n - 1){
-        if(abs(arr[l] - arr[r]) > val) res++;
-        if(res) ok1 = 1;
-        l += 2, r += 2;
-    }
-  }
-  else {
-    while(r < n){
-        if(abs(arr[l] - arr[r]) > val) res++;
-        if(res) ok1 = 1;
-        l += 2, r += 2;
-    }
-  }
-  
-  if(!ok || !ok1) return true;
-  else return false;
+  return true;
 }
 
 ll bs(){
-  ll l = 1, r = 1e9, ans = 0;
+  ll l = 1, r = 1e18, ans = 0;
   while(r - l >= 0){
     ll mid = (r + l) / 2;
     if(calc(mid)){
