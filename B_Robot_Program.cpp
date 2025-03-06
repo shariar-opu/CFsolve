@@ -42,30 +42,40 @@ void solve(int tc){
 
     string s;   cin >> s;
 
-    int cnt = 0, ans = x;
+    ll t1 = 0, t2 = 0;
+    for(int i = 0; i < n; i++){
+        if(s[i] == 'L') x--;
+        else x++;
 
-    bool ok = 1;
-    while(ok){
-        for(auto u : s){
-            if(u == 'L') ans --;
-            else ans++;
-            cnt ++;
+        t1++;
+        if(x == 0) break;
+    }
 
-            if(ans == 0) {
-                ok = 0;
-                break;
-            }
-            if(cnt > k){
-                cout << 0 << endl;
-                return;
-            }
+    if(t1 == n && x) {
+        cout << 0 << endl;
+        return;
+    }
 
+    k -= t1;
+
+    for(int i = 0; i < n; i++){
+        if(s[i] == 'L') x--;
+        else x++;
+
+        t2++;
+        if(x == 0) {
+            break;
         }
     }
-    
-    if(k != cnt) cnt ++;
 
-    cout << k / cnt << endl;
+    if(t2 == n && x) {
+        cout << 1 << endl;
+        return;
+    }
+    
+    ll ans = k / t2;
+
+    cout << ans + 1 << endl;
 }
 
 int32_t main(){
