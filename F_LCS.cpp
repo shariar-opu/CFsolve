@@ -1,38 +1,50 @@
 #include<bits/stdc++.h>
 using namespace std;
-string s, t, nnn;
-string solve(char a, int j){
-    if(j >= s.size()) return nnn;
-    if(j >= t.size()) return nnn;
+const int inf = 3000;
 
-    string res = "";
-    bool ok = 0;
-    for(int q = j; q < t.size(); q++){
-        if(a == t[q]){
-            res = solve(s[j+1], q+1) + t[q];
-            // string tmp = solve(s[i+1], q+1);
-            // if(res.size() < tmp.size() + 1) res = tmp + t[q];
-            // ok = 1;
-            break;
-        }
+string s, t;
+int dp[inf + 7][inf + 7], n, m;
+
+int solve(int i, int j){
+    if(i == n || j == m) return 0;
+    if(dp[i][j] != -1) return dp[i][j];
+
+    int &res = dp[i][j] = 0;
+
+    if(s[i] == t[j]) res = 1 + solve(i + 1, j + 1);
+    else{
+        res = max(solve(i + 1, j), solve(i, j + 1));
     }
 
-    // if(!ok && i < s.size() - 1) res = solve(s[i+1], j);
     return res;
+}
+
+void print(int i, int j){
+    if(i == n || j == m) return;
+
+    if(s[i] == t[j]){
+        cout << s[i];
+        print(i + 1, j + 1);
+        return;
+    }
+
+    int tmp = solve(i + 1, j);
+    if(tmp > solve(i, j + 1)){
+        print(i + 1, j); 
+    }
+    else print(i, j + 1);
 }
 
 int main(){
     ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+    memset(dp, -1, sizeof(dp));
     
     cin >> s >> t;
 
-    string ans = "";
-    for(int i = 0; i < s.size(); i++){
-        string tmp = solve(s[i], i);
-        if(ans.size() < tmp.size()) ans = tmp.size();
-    }
-    reverse(ans.begin(), ans.end());
-    cout << ans << endl;
+    n = s.size(), m = t.size();
 
+    solve(0, 0);
+    print(0, 0);
+    
     return 0;
 }
