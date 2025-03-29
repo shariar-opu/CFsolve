@@ -21,7 +21,7 @@ int main(){
     for(int i = 1; i <= n; i++){
         for(int j = 0; j <= totalPrice; j++){
             dp[i][j] = dp[i - 1][j];
-            if(j >= bookPrice[i -])
+            if(j >= bookPrice[i - 1])
                 dp[i][j] = max(dp[i][j], dp[i - 1][j - bookPrice[i - 1]] + bookPage[i - 1]);
         }
     }
