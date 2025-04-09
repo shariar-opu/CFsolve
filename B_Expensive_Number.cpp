@@ -5,14 +5,9 @@ using namespace std;
 void solve(int tc){
     string s;   cin >> s;
     int mx = 0, z = 0;
-    for(char c : s){
+    for(auto c : s){
         if(c == '0') z++;
-        else{
-            int cnt = z + 1;
-            if(cnt > mx){
-                mx = cnt;
-            }
-        }
+        else mx = max(mx, z + 1);
     }
     cout << s.size() - mx << endl;
 }
