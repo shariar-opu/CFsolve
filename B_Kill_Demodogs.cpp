@@ -1,12 +1,39 @@
 #include<bits/stdc++.h>
 using namespace std;
+#define ll long long
 
 const int mod = 1e9 + 7;
+ll pw(ll a, ll b){
+    a %= mod;
+    ll r = 1;
+    while(b > 0){
+        if(b & 1) r = (r * a) % mod;
+        a = (a * a) % mod;
+        b >>= 1;
+    }
+    return r;
+}
+
+ll sq(ll n){
+    ll ans = (((n * (n + 1)) % mod) * (2 * n + 1) % mod) % mod;
+    ans = (ans * pw(6, mod - 2)) % mod;
+    return ans;
+}
+
+ll lin(ll n){
+    ll ans = (n * (n + 1)) % mod;
+    ans = (ans * pw(2, mod - 2)) % mod;
+    return ans;
+}
 
 void solve(int tc){
-    long long n;  cin >> n;
+    ll n;  cin >> n;
 
-    long long ans = ((n * n) + (n * (n - 1) + 2) * 1LL * 2022) % mod;
+    ll ans = sq(n) % mod;
+    ans = (ans + sq(n - 1)) % mod;
+    ans = (ans + lin(n - 1)) % mod;
+    ans = (ans * 2022) % mod;
+
     cout << ans << endl;
 }
 
