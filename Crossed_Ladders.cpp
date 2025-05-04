@@ -2,12 +2,29 @@
 using namespace std;
 #define ll long long
 
-int x, y, c;
+const double eps = 1e-11;
+double x, y, c;
+
+
+bool calc(double d){
+    double lx = sqrt(x * x - d * d);
+    double ly = sqrt(y * y - d * d);
+
+    double tot_dis = (lx * ly) / (lx + ly);
+    return tot_dis <= c;
+}
 
 void solve(int tc){
     cin >> x >> y >> c;
 
-    double l = 0, r;
+    double l = 0, r = min(x, y);
+    while(r - l > eps){
+        double mid = (r + l) / 2;
+        if(calc(mid)) r = mid;
+        else l = mid;
+    }
+
+    cout << "Case " << tc << ": " << fixed << setprecision(10) << l << endl;
 }
 
 int32_t main(){
