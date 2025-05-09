@@ -24,11 +24,10 @@ void solve(int tc){
         if(c == '!'){
             st.erase(st.upper_bound(arr[l - 1]));
             st.insert(r);
+            arr[l - 1] = r;
         }
         else if(c == '?'){
-            cout << "Position => " << *st.lower_bound(l) << " , " << *st.upper_bound(r) << endl;
-            ll ans = st.order_of_key(r) - st.order_of_key(l);
-            if(st.find(l) != st.end() || st.find(r) != st.end()) ans++;
+            ll ans = st.order_of_key(r + 1) - st.order_of_key(l);
             cout << ans << '\n';
         }
     }
