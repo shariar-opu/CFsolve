@@ -6,22 +6,30 @@ void solve(int tc){
     int n;  cin >> n;
     string a, b;    cin >> a >> b;
 
-    int z = 0, o = 0;
+    int z = 0, o = 0, z1 = 0, o1 = 0;
+    bool ok = 0;
     for(int i = 0; i < n; i++){
-        if(a[i] != b[i]){
-            if(a[i] == '0') z++;
-            else o++;
-        }
-        else{
-            if(o != z) {
+        // cout << "Z = " << z << ", O = " << o << ", OK = " << ok << endl;
+        if(ok && a[i] == b[i]){
+            if(o != z || o - o1 != z - z1) {
                 cout << "NO\n";
                 return;
             }
-            z = o = 0;
+            ok = o1 = z1 = 0;
         }
+        else if(a[i] != b[i]) {
+            if(a[i] == '0') z1++;
+            else o1++;
+            ok = 1;
+        }
+
+        if(a[i] == '0') z++;
+        else o++;
     }
-    if((z || o) && z != o) cout << "NO\n";
+
+    if(ok && (z != o || o - o1 != z - z1)) cout << "NO\n";
     else cout << "YES\n";
+    
 }
 
 int32_t main(){
