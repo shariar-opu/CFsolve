@@ -3,28 +3,28 @@ using namespace std;
 #define ll long long
 #define endl '\n'
 
-const int inf = 1e7;
-bool mark[inf+5];
-vector<ll>primes;
+const int N = 1e8;
+bitset<N> mark;
 void sieve(){
-    mark[0] = mark[1] = 1;
-    for(int i = 4; i <= inf; i += 2) mark[i] = 1;
-    for(int i = 3; i*i <= inf; i += 2){
-        if(!mark[i]){
-            for(int j = i*i; j <= inf; j += i){
-                mark[j] = 1;
+    mark[1] = false;
+    for(ll i = 2; i < N; i++) mark[i] = true;
+    for(ll i = 2; i * i < N; i++){
+        if(mark[i]){
+            for(ll j = i + i; j < N; j += i){
+                mark[j] = false;
             }
         }
-    }
-
-    for(int i = 2; i <= inf; i++){
-        if(!mark[i]) primes.push_back(i);
     }
 }
 
 void solve(int tc){
     sieve();
-    for(int i = 0; i <= inf; i += 100){
+    vector<int> primes;
+    for(int i = 2; i < N; i++){
+        if(mark[i]) primes.push_back(i);
+    }
+
+    for(int i = 0; i < primes.size(); i += 100){
         cout << primes[i] << endl;
     }
 }
