@@ -1,15 +1,15 @@
 {
-    "files.associations": {
-        "iostream": "cpp",
-        "cstdlib": "cpp",
-        "valarray": "cpp",
-        "iomanip": "cpp",
-        "ostream": "cpp",
-        "iosfwd": "cpp"
-    },
-    "python.testing.pytestArgs": [
-        "."
-    ],
-    "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+  "files.associations": {
+    "iostream": "cpp",
+    "cstdlib": "cpp",
+    "valarray": "cpp",
+    "iomanip": "cpp",
+    "ostream": "cpp",
+    "iosfwd": "cpp",
+    "compare": "cpp",
+    "cstdint": "cpp"
+  },
+  "python.testing.pytestArgs": ["."],
+  "python.testing.unittestEnabled": false,
+  "python.testing.pytestEnabled": true
 }

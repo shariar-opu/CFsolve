@@ -3,49 +3,60 @@ using namespace std;
 #define ll long long
 #define endl '\n'
 
-ll largestPow(ll n, ll p){
-    ll res = 0;
-    while(n > 0){
-        n /= p;
-        res += n;
+const int N = 1e4 + 7;
+bitset<N> mark;
+vector<int> primes;
+void sieve(){
+    mark[1] = false;
+    for(ll i = 2; i < N; i++) mark[i] = true;
+    for(ll i = 2; i * i < N; i++){
+        if(mark[i]){
+            for(ll j = i * i; j < N; j += i){
+                mark[j] = false;
+            }
+        }
     }
-    return res;
-}
 
-ll pw(ll a, ll b){
-    ll res = 1;
-    while(b > 0){
-        if(b & 1) res *= a;
-        a *= a;
-        b >>= 1;
+    for(int i = 2; i < N; i++){
+        if(mark[i]) primes.push_back(i);
     }
-    return res;
+    //time complexity: O(sqrt(N) * log(N));
 }
 
 void solve(int tc){
-    ll m, n;    cin >> m >> n;
+    int m, n;   cin >> m >> n;
 
-    ll ans = INT_MAX;
-    for(int i = 2; i * i <= m; i++){
-        int res = 0;
-        if(m % i == 0){
-            while(m % i == 0){
-                res ++;
-                m /= i;
+    int ans = INT_MAX;
+    for(auto p: primes){
+        if(p > m) break;
+        if(m % p == 0){
+            int e = 0;
+            while(m % p == 0){
+                ++ e;
+                m /= p;
             }
+            int x = 0;
+            for(int i = 1; i <= n; i++){
+                int tmp = i;
+                while(tmp % p == 0) {
+                    ++ x; 
+                    tmp /= p;
+                }
+            }
+            ans = min(ans, x / e);
         }
-        ans = min(ans, largestPow(n, i) / pw(i, res - 1));
     }
-    if(m > 1) ans = min(ans, largestPow(n, m));
+    cout << "Case " << tc << ":\n";
+    if(ans) cout << ans << endl;
+    else cout << "Impossible to divide\n";
 
-    cout << "Case " << tc << ": " << endl;
-    if(ans == INT_MAX) cout << "Impossible to divide\n";
-    else cout << ans << endl;
+    //time complexity: O(T * n * log(n) * log(m)) ;
 }
 
 int32_t main(){
     ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-    
+    sieve();
+
     int t = 1;
     cin >> t;
     for(int i = 1; i <= t; i++) solve(i);
