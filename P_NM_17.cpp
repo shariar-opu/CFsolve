@@ -5,6 +5,7 @@ using namespace std;
 
 const int N = 1e7 + 7;
 bitset<N> is_prime;
+vector<int> primes;
 void sieve(){
     is_prime[1] = false;
     for(int i = 2; i <= N; i++) is_prime[i] = true;
@@ -15,15 +16,20 @@ void sieve(){
             }
         }
     }
+
+    for(int i = 2; i < N; i++){
+        if(is_prime[i]) primes.push_back(i);
+    }
 }
 
 void solve(int tc){
     int n;  cin >> n;
 
     int ans = 0;
-    for(int a = 1; a <= n; a++){
+    for(auto a: primes){
+        if(a > n) break;
         int b = n - a;
-        if(is_prime[a] && is_prime[b] && a <= b) ++ans;
+        if(is_prime[b] && a <= b) ++ans;
     }
     cout << "Case " << tc << ": " << ans << endl;
 }

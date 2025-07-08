@@ -3,37 +3,41 @@ using namespace std;
 #define ll long long
 #define endl '\n'
 
-set<ll> pf(ll b){
-    set<ll> st;
-    for(ll i = 2; i * i <= b; i++){
-        if(b % i == 0){
-            while(b % i == 0){
-                st.insert(i);
-                b /= i;
-            }
+vector<ll> pf(ll x){
+    vector<ll> v;
+    ll tmp = x;
+    for(int i = 2; i * i <= x; i++){
+        if(x % i == 0){
+            v.push_back(i);
+            while(tmp % i == 0) tmp /= i;
         }
     }
-    if(b > 1) st.insert(b);
-    return st;
-}
+    if(tmp > 1) v.push_back(tmp);
 
+    return v;
+} 
 void solve(int tc){
     ll a, b;    cin >> a >> b;
-    set<ll> pf_a = pf(a);
-    set<ll> pf_b = pf(b);
+    ll g = __gcd(a, b);
+    vector<ll> pf_of_gcd = pf(g);
+    cout << g << " " << pf_of_gcd.size() << endl;
 
-    // for(auto u: pf_b){
-    //     if(pf_a.find(u) == pf_a.end()){
-    //         cout << "No\n";
-    //         return;
-    //     }
-    // }
-    // cout << "Yes\n";
-    for(auto u: pf_a) cout << u << " ";
-    cout << endl;
-    for(auto u: pf_b) cout << u << " ";
-    cout << endl;
+    ll tmp = b;
+    for(auto u: pf_of_gcd){
+        if(tmp % u == 0) {
+            while(tmp % u == 0) tmp /= u;
+        }
+        else {
+            cout << "No\n";
+            return;
+        }
+    }
+    if(tmp > 1) {
+        cout << "No\n";
+        return;
+    }
 
+    cout << "Yes\n";
 }
 
 int32_t main(){
