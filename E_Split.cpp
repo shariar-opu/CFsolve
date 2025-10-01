@@ -6,18 +6,36 @@ void solve(int tc){
     int n, k;   cin >> n >> k;
     map<int, int> cnt;
     vector<int> arr(n);
-    for(int &i: arr) cin >> i, cnt[i]++;
+    for(int &i: arr) {
+        cin >> i;
+        cnt[i]++;
+    }
 
     for(auto u: cnt) {
-        if(u.second % k != 0){
+        if(u.second % k){
             cout << 0 << '\n';
             return;
         }
     }
 
-    int l = 0, r = k;
+    map<int, int> mp;
+    int r = -1;
+    ll ans = 0;
+    for(int l = 0; l < n; l++) {
+        while(r < n - 1) {
+            if(mp[arr[r + 1]] < cnt[arr[r + 1]] / k) {
+                mp[arr[r + 1]]++;
+                r++;
+            }
+            else break;
+        }
+        ans += (r - l + 1);
+        mp[arr[l]]--;
+    }
 
-    //time complexity: 
+    cout << ans << '\n';
+
+    //time complexity: O(t * n * log (n))
 }
 
 int32_t main(){
