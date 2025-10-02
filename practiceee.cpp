@@ -2,6 +2,8 @@
 using namespace std;
 #define ll long long
 
+int cnt[2000007];
+
 void solve(int tc){
     int n;  cin >> n;
     vector<int> arr(n);
@@ -9,12 +11,19 @@ void solve(int tc){
 
     int ans = 0;
     for(int i = 0; i < n; i++){
-        for(int j = i + 1; j < n; j++) ans = max(ans, __gcd(arr[i], arr[j]));
+        for(int j = 1; j * j <= arr[i]; j++){
+            if(arr[i] % j == 0){
+                if(cnt[arr[i] / j]) ans = max(ans, arr[i] / j);
+                else cnt[arr[i] / j] ++;
+                if(arr[i] / j != j && cnt[j]) ans = max(ans, j);
+                else cnt[j] ++;
+            }
+        }
     }
 
     cout << ans << '\n';
 
-    //time complexity: 
+    //time complexity: 2 * 10 ^ 8
 }
 
 int32_t main(){
