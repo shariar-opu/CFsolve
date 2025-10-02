@@ -2,28 +2,21 @@
 using namespace std;
 #define ll long long
 
-int cnt[2000007];
-
 void solve(int tc){
-    int n;  cin >> n;
-    vector<int> arr(n);
-    for(int &i: arr) cin >> i;
-
-    int ans = 0;
-    for(int i = 0; i < n; i++){
-        for(int j = 1; j * j <= arr[i]; j++){
-            if(arr[i] % j == 0){
-                if(cnt[arr[i] / j]) ans = max(ans, arr[i] / j);
-                else cnt[arr[i] / j] ++;
-                if(arr[i] / j != j && cnt[j]) ans = max(ans, j);
-                else cnt[j] ++;
-            }
-        }
+    int n, one = 0, two = 0;  cin >> n;
+    for(int i = 0; i < n; i++) {
+        int a;  cin >> a;
+        if(a == 1) one ++;
+        else two ++;
     }
+    if(two) cout << 2 << ' ';
+    if(one) cout << 1 << ' ';
 
-    cout << ans << '\n';
+    for(int i = 1; i < two; i++) cout << 2 << ' ';
+    for(int i = 1; i < one; i++) cout << 1 << ' ';
+    cout << '\n';
 
-    //time complexity: 2 * 10 ^ 8
+    //time complexity: 
 }
 
 int32_t main(){
